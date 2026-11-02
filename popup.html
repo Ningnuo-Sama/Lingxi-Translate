@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 300px;
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #18191c;
+      color: #e4e6eb;
+    }
+    h2 {
+      font-size: 15px;
+      margin: 0 0 12px 0;
+      color: #10a37f;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .field { margin-bottom: 10px; }
+    label.cap {
+      font-size: 11px;
+      color: #9aa0a6;
+      display: block;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    input[type=text], input[type=password], select {
+      width: 100%;
+      box-sizing: border-box;
+      background: #242529;
+      border: 1px solid #36383e;
+      color: #fff;
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      outline: none;
+    }
+    input:focus, select:focus { border-color: #10a37f; }
+    button {
+      width: 100%;
+      padding: 8px;
+      background: #10a37f;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 6px;
+      font-size: 13px;
+    }
+    button:hover { background: #0d8a6a; }
+    #translateBtn { padding: 11px; font-size: 14px; margin: 0 0 12px 0; }
+    #translateBtn.on { background: #3a3d44; }
+    #translateBtn.on:hover { background: #4a4d55; }
+    #translateBtn:disabled { opacity: .5; cursor: not-allowed; }
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 0;
+      font-size: 13px;
+      border-bottom: 1px solid #26282d;
+    }
+    .row small { display: block; color: #8a8f98; font-size: 11px; margin-top: 2px; }
+    .row select { width: 120px; }
+    .switch { position: relative; width: 36px; height: 20px; flex: none; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; inset: 0; cursor: pointer;
+      background: #3a3d44; border-radius: 20px; transition: .15s;
+    }
+    .slider::before {
+      content: ""; position: absolute; width: 14px; height: 14px; left: 3px; top: 3px;
+      background: #fff; border-radius: 50%; transition: .15s;
+    }
+    .switch input:checked + .slider { background: #10a37f; }
+    .switch input:checked + .slider::before { transform: translateX(16px); }
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      background: #242529;
+      border: 1px solid #36383e;
+      color: #fff;
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      outline: none;
+      resize: vertical;
+      font-family: inherit;
+    }
+    textarea:focus { border-color: #10a37f; }
+    .inline { display: flex; gap: 6px; align-items: stretch; }
+    .inline select { flex: 1; min-width: 0; }
+    button.small { width: auto; margin: 0; padding: 0 10px; font-size: 12px; white-space: nowrap; flex: none; }
+    button.small:disabled { opacity: .5; cursor: wait; }
+    .hint { display: block; color: #8a8f98; font-size: 11px; margin-top: 4px; }
+    details { margin-top: 12px; }
+    summary { cursor: pointer; font-size: 12px; color: #9aa0a6; margin-bottom: 8px; }
+    #status { font-size: 11.5px; margin-top: 8px; text-align: center; min-height: 16px; }
+  </style>
+</head>
+<body>
+  <h2><span>⚡</span> DeepSeek 纯净翻译</h2>
+
+  <button id="translateBtn">翻译当前页面</button>
+
+  <div class="row">
+    <div>上下文精翻<small>先读全文，统一术语与指代</small></div>
+    <label class="switch"><input type="checkbox" id="contextMode"><span class="slider"></span></label>
+  </div>
+  <div class="row">
+    <div>始终翻译此网站<small id="siteName">-</small></div>
+    <label class="switch"><input type="checkbox" id="autoSite"><span class="slider"></span></label>
+  </div>
+  <div class="row">
+    <div>永不自动翻译此网站<small id="neverSiteName">-</small></div>
+    <label class="switch"><input type="checkbox" id="neverSite"><span class="slider"></span></label>
+  </div>
+  <div class="row">
+    <div>自动翻译所有外文页<small>中文页面自动跳过</small></div>
+    <label class="switch"><input type="checkbox" id="autoAll"><span class="slider"></span></label>
+  </div>
+  <div class="row">
+    <div>显示悬浮球<small>页面边缘的一键翻译入口</small></div>
+    <label class="switch"><input type="checkbox" id="floatBall"><span class="slider"></span></label>
+  </div>
+  <div class="row">
+    <div>显示方式</div>
+    <select id="displayMode">
+      <option value="dual">双语对照</option>
+      <option value="only">仅显示译文</option>
+    </select>
+  </div>
+  <div class="row">
+    <div>译文样式<small>默认无装饰，像原文一样</small></div>
+    <select id="transStyle">
+      <option value="plain">沉浸（无装饰）</option>
+      <option value="muted">淡色</option>
+      <option value="underline">虚线下划线</option>
+      <option value="bar">竖线底色</option>
+    </select>
+  </div>
+  <div class="row">
+    <div>术语处理<small>人名、产品、技术术语</small></div>
+    <select id="termMode">
+      <option value="keep">保留原文</option>
+      <option value="gloss">首次括注</option>
+      <option value="translate">翻译</option>
+    </select>
+  </div>
+
+  <details>
+    <summary>网站规则</summary>
+    <label class="cap">始终自动翻译的网站</label>
+    <textarea id="autoRules" rows="3" spellcheck="false" placeholder="一行一个，例如：&#10;news.ycombinator.com&#10;*.medium.com"></textarea>
+    <label class="cap" style="margin-top:8px">永不自动翻译的网站</label>
+    <textarea id="neverRules" rows="3" spellcheck="false" placeholder="一行一个，优先级更高"></textarea>
+    <small class="hint">写域名即可（含子域），支持 * 通配，整条网址也行。永不翻译的网站仍可手动翻译。</small>
+  </details>
+
+  <details>
+    <summary>不翻译词表</summary>
+    <textarea id="noTranslate" rows="4" spellcheck="false" placeholder="一行一个，例如：&#10;Transformer&#10;Copilot"></textarea>
+    <small class="hint">这些词永远保持原样。术语设置修改后，重新翻译页面生效。</small>
+  </details>
+
+  <details>
+    <summary>模型与接口设置</summary>
+    <div class="field">
+      <label class="cap">API 接口地址</label>
+      <input type="text" id="apiUrl" spellcheck="false">
+    </div>
+    <div class="field">
+      <label class="cap">API 密钥 (Token)</label>
+      <input type="password" id="apiKey" spellcheck="false">
+    </div>
+    <div class="field">
+      <label class="cap">模型</label>
+      <div class="inline">
+        <select id="model"></select>
+        <button id="fetchBtn" class="small" title="按上面的接口地址和密钥，从服务端拉取可用模型列表">获取模型</button>
+      </div>
+      <input type="text" id="modelFilter" placeholder="筛选模型…" spellcheck="false" style="display:none;margin-top:6px">
+      <input type="text" id="modelCustom" placeholder="输入模型名，回车确认" spellcheck="false" style="display:none;margin-top:6px">
+      <small class="hint" id="modelCount"></small>
+    </div>
+    <div class="field">
+      <label class="cap">备用模型（主模型连续失败时自动切换）</label>
+      <select id="fallbackModel"></select>
+      <input type="text" id="fallbackCustom" placeholder="输入备用模型名，回车确认" spellcheck="false" style="display:none;margin-top:6px">
+      <small class="hint">用同一个接口地址；主模型连续失败 2 次会冷却 2 分钟，期间直接用备用。</small>
+    </div>
+    <div class="row" style="border-bottom:0;padding-left:0;padding-right:0">
+      <div>关闭模型思考<small>翻译更快更稳；服务端不支持会自动忽略</small></div>
+      <label class="switch"><input type="checkbox" id="noThinking"><span class="slider"></span></label>
+    </div>
+    <button id="saveBtn">保存并立即生效</button>
+  </details>
+  <div id="status"></div>
+  <script src="rules.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+#deepseek-translate-tooltip {
+  position: absolute;
+  z-index: 2147483647;
+  max-width: 420px;
+  background: rgba(18, 20, 24, 0.95);
+  color: #f1f3f5;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 13.5px;
+  line-height: 1.5;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: none;
+  pointer-events: auto;
+  backdrop-filter: blur(8px);
+}
+
+.deepseek-hide-orig {
+  display: none !important;
+}
+
+/* 表格单元格里的原文（仅译文模式下藏起来）：不占位、不撑高行高 */
+.deepseek-orig-wrap {
+  display: none !important;
+}
+
+/* 默认（plain）：沉浸式——译文不加框、不加底色，字体字号颜色都跟着原文走。
+   字体、字号、行高、外边距由 content.js 按原文元素逐个复制，这里只管不加装饰 */
+.deepseek-dual-target {
+  display: block !important;
+  box-sizing: border-box !important;
+  color: var(--ds-color, inherit) !important;
+  background: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  word-break: break-word;
+}
+
+/* 等待与失败：只淡一点 / 变红，不改变排版 */
+.deepseek-dual-pending {
+  opacity: 0.4 !important;
+}
+
+.deepseek-dual-target.deepseek-dual-failed {
+  color: #e5484d !important;
+  cursor: pointer !important;
+}
+
+/* 可选样式：弹窗里「译文样式」切换，写在 <html data-ds-style="…"> 上 */
+html[data-ds-style="muted"] .deepseek-dual-target:not(.deepseek-dual-pending) {
+  opacity: 0.68 !important;
+}
+
+html[data-ds-style="underline"] .deepseek-dual-target {
+  text-decoration: underline dotted !important;
+  text-decoration-color: rgba(128, 128, 128, 0.7) !important;
+  text-underline-offset: 4px !important;
+}
+
+html[data-ds-style="bar"] .deepseek-dual-target {
+  color: #10a37f !important;
+  background: rgba(16, 163, 127, 0.07) !important;
+  border-left: 3px solid #10a37f !important;
+  border-radius: 0 4px 4px 0 !important;
+  padding: 4px 8px !important;
+}
+
+html[data-ds-style="bar"] .deepseek-dual-target.deepseek-dual-failed {
+  color: #e5484d !important;
+  border-left-color: #e5484d !important;
+}
