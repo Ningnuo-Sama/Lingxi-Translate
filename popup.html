@@ -1,210 +1,649 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
+  <title>灵犀翻译设置</title>
   <style>
-    body {
-      width: 300px;
-      margin: 0;
-      padding: 16px;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #18191c;
-      color: #e4e6eb;
+    :root {
+      --bg: #0d0f17;
+      --bg-gradient: linear-gradient(180deg, #0e111a 0%, #131724 100%);
+      --card-bg: rgba(22, 26, 38, 0.72);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(28, 33, 48, 0.85);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --primary: #6366f1;
+      --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+      --primary-glow: 0 4px 16px rgba(99, 102, 241, 0.35);
+      --input-bg: #151824;
+      --input-border: #262b3d;
+      --input-focus: #6366f1;
+      --switch-off: #272c3d;
+      --switch-on: #6366f1;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
     }
-    h2 {
-      font-size: 15px;
-      margin: 0 0 12px 0;
-      color: #10a37f;
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      width: 340px;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      padding: 16px;
+      margin: 0;
+      user-select: none;
+    }
+
+    /* 滚动条 */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-md);
+      background: var(--primary-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--primary-glow);
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .brand-text h1 {
+      font-size: 14.5px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .field { margin-bottom: 10px; }
-    label.cap {
+    .version-pill {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 10px;
+      background: rgba(99, 102, 241, 0.18);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+    .brand-text p {
       font-size: 11px;
-      color: #9aa0a6;
-      display: block;
-      margin-bottom: 4px;
-      text-transform: uppercase;
-      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 1px;
     }
-    input[type=text], input[type=password], select {
-      width: 100%;
-      box-sizing: border-box;
-      background: #242529;
-      border: 1px solid #36383e;
-      color: #fff;
-      padding: 7px 10px;
-      border-radius: 6px;
-      font-size: 12.5px;
-      outline: none;
+    .header-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--card-border);
+      background: rgba(255,255,255,0.03);
+      transition: all 0.2s ease;
     }
-    input:focus, select:focus { border-color: #10a37f; }
-    button {
+    .header-link:hover {
+      color: var(--text-main);
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-1px);
+    }
+
+    /* Hero Translate Button */
+    .hero-box {
+      margin-bottom: 14px;
+    }
+    #translateBtn {
       width: 100%;
-      padding: 8px;
-      background: #10a37f;
+      padding: 12px 16px;
+      background: var(--primary-gradient);
       color: #fff;
-      border: none;
-      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-md);
+      font-size: 14px;
       font-weight: 600;
+      letter-spacing: 0.3px;
       cursor: pointer;
-      margin-top: 6px;
-      font-size: 13px;
+      box-shadow: var(--primary-glow);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
     }
-    button:hover { background: #0d8a6a; }
-    #translateBtn { padding: 11px; font-size: 14px; margin: 0 0 12px 0; }
-    #translateBtn.on { background: #3a3d44; }
-    #translateBtn.on:hover { background: #4a4d55; }
-    #translateBtn:disabled { opacity: .5; cursor: not-allowed; }
+    #translateBtn:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+    }
+    #translateBtn:active {
+      transform: translateY(1px);
+    }
+    #translateBtn.on {
+      background: #1e2230;
+      color: #cbd5e1;
+      border-color: rgba(255,255,255,0.12);
+      box-shadow: none;
+    }
+    #translateBtn.on:hover {
+      background: #272c3d;
+      color: #fff;
+    }
+    #translateBtn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Current Host Banner */
+    .host-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+    .host-banner .host-id {
+      color: var(--text-muted);
+      font-weight: 500;
+      max-width: 220px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .card-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Rows */
     .row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 7px 0;
-      font-size: 13px;
-      border-bottom: 1px solid #26282d;
+      font-size: 12.5px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
-    .row small { display: block; color: #8a8f98; font-size: 11px; margin-top: 2px; }
-    .row select { width: 120px; }
-    .switch { position: relative; width: 36px; height: 20px; flex: none; }
-    .switch input { opacity: 0; width: 0; height: 0; }
+    .row:last-child {
+      border-bottom: none;
+    }
+    .row-info {
+      flex: 1;
+      padding-right: 12px;
+    }
+    .row-info .title {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+    .row-info small {
+      display: block;
+      color: var(--text-muted);
+      font-size: 10.5px;
+      margin-top: 2px;
+      line-height: 1.35;
+    }
+    .row select {
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    /* Switch */
+    .switch {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      flex-shrink: 0;
+      display: inline-block;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
     .slider {
-      position: absolute; inset: 0; cursor: pointer;
-      background: #3a3d44; border-radius: 20px; transition: .15s;
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+      background: var(--switch-off);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .slider::before {
-      content: ""; position: absolute; width: 14px; height: 14px; left: 3px; top: 3px;
-      background: #fff; border-radius: 50%; transition: .15s;
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      left: 2px;
+      top: 2px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .switch input:checked + .slider { background: #10a37f; }
-    .switch input:checked + .slider::before { transform: translateX(16px); }
-    textarea {
+    .switch input:checked + .slider {
+      background: var(--switch-on);
+      border-color: rgba(99, 102, 241, 0.4);
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+    }
+    .switch input:checked + .slider::before {
+      transform: translateX(16px);
+    }
+
+    /* Inputs & Selects */
+    input[type=text], input[type=password], select, textarea {
       width: 100%;
-      box-sizing: border-box;
-      background: #242529;
-      border: 1px solid #36383e;
-      color: #fff;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-main);
       padding: 7px 10px;
-      border-radius: 6px;
-      font-size: 12.5px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
       outline: none;
-      resize: vertical;
-      font-family: inherit;
+      transition: all 0.18s ease;
     }
-    textarea:focus { border-color: #10a37f; }
-    .inline { display: flex; gap: 6px; align-items: stretch; }
-    .inline select { flex: 1; min-width: 0; }
-    button.small { width: auto; margin: 0; padding: 0 10px; font-size: 12px; white-space: nowrap; flex: none; }
-    button.small:disabled { opacity: .5; cursor: wait; }
-    .hint { display: block; color: #8a8f98; font-size: 11px; margin-top: 4px; }
-    details { margin-top: 12px; }
-    summary { cursor: pointer; font-size: 12px; color: #9aa0a6; margin-bottom: 8px; }
-    #status { font-size: 11.5px; margin-top: 8px; text-align: center; min-height: 16px; }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--input-focus);
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    }
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%2394a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      padding-right: 24px;
+    }
+    textarea {
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    .field {
+      margin-bottom: 10px;
+    }
+    label.cap {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 5px;
+    }
+    .hint {
+      display: block;
+      color: var(--text-dim);
+      font-size: 10.5px;
+      margin-top: 4px;
+      line-height: 1.35;
+    }
+    .inline {
+      display: flex;
+      gap: 6px;
+      align-items: stretch;
+    }
+    .inline select {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Small & Action Buttons */
+    button.small {
+      width: auto;
+      margin: 0;
+      padding: 0 12px;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    button.small:hover {
+      background: rgba(99, 102, 241, 0.25);
+      border-color: rgba(99, 102, 241, 0.5);
+      color: #fff;
+    }
+    button.small:disabled {
+      opacity: 0.5;
+      cursor: wait;
+    }
+
+    #saveBtn {
+      width: 100%;
+      margin-top: 10px;
+      padding: 9px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+      transition: all 0.18s ease;
+    }
+    #saveBtn:hover {
+      background: #4f46e5;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+
+    /* Details Accordion */
+    details {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+    details[open] {
+      border-color: rgba(255,255,255,0.14);
+    }
+    summary {
+      padding: 9px 12px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: color 0.18s ease;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary:hover {
+      color: var(--text-main);
+    }
+    summary::after {
+      content: "";
+      width: 12px;
+      height: 12px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="%2394a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>');
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: transform 0.22s ease;
+      flex-shrink: 0;
+    }
+    details[open] summary::after {
+      transform: rotate(90deg);
+    }
+    .details-body {
+      padding: 10px 12px 12px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      background: rgba(10, 12, 18, 0.4);
+    }
+
+    #status {
+      font-size: 11px;
+      margin-top: 8px;
+      text-align: center;
+      min-height: 16px;
+      color: #10b981;
+      font-weight: 500;
+    }
   </style>
 </head>
 <body>
-  <h2><span>⚡</span> DeepSeek 纯净翻译</h2>
-
-  <button id="translateBtn">翻译当前页面</button>
-
-  <div class="row">
-    <div>上下文精翻<small>先读全文，统一术语与指代</small></div>
-    <label class="switch"><input type="checkbox" id="contextMode"><span class="slider"></span></label>
-  </div>
-  <div class="row">
-    <div>始终翻译此网站<small id="siteName">-</small></div>
-    <label class="switch"><input type="checkbox" id="autoSite"><span class="slider"></span></label>
-  </div>
-  <div class="row">
-    <div>永不自动翻译此网站<small id="neverSiteName">-</small></div>
-    <label class="switch"><input type="checkbox" id="neverSite"><span class="slider"></span></label>
-  </div>
-  <div class="row">
-    <div>自动翻译所有外文页<small>中文页面自动跳过</small></div>
-    <label class="switch"><input type="checkbox" id="autoAll"><span class="slider"></span></label>
-  </div>
-  <div class="row">
-    <div>显示悬浮球<small>页面边缘的一键翻译入口</small></div>
-    <label class="switch"><input type="checkbox" id="floatBall"><span class="slider"></span></label>
-  </div>
-  <div class="row">
-    <div>划词选中翻译<small>选中文本后自动弹出气泡翻译</small></div>
-    <label class="switch"><input type="checkbox" id="selectTranslate"><span class="slider"></span></label>
-  </div>
-  <div class="row">
-    <div>显示方式</div>
-    <select id="displayMode">
-      <option value="dual">双语对照</option>
-      <option value="only">仅显示译文</option>
-    </select>
-  </div>
-  <div class="row">
-    <div>译文样式<small>默认无装饰，像原文一样</small></div>
-    <select id="transStyle">
-      <option value="plain">沉浸（无装饰）</option>
-      <option value="muted">淡色</option>
-      <option value="underline">虚线下划线</option>
-      <option value="bar">竖线底色</option>
-    </select>
-  </div>
-  <div class="row">
-    <div>术语处理<small>人名、产品、技术术语</small></div>
-    <select id="termMode">
-      <option value="keep">保留原文</option>
-      <option value="gloss">首次括注</option>
-      <option value="translate">翻译</option>
-    </select>
+  <!-- Header -->
+  <div class="header">
+    <div class="brand">
+      <div class="logo-badge">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 8l6 6"></path>
+          <path d="M4 14l6-6 2-3"></path>
+          <path d="M2 5h12"></path>
+          <path d="M7 2h1"></path>
+          <path d="M22 22l-5-10-5 10"></path>
+          <path d="M14 18h6"></path>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <h1>灵犀翻译 <span class="version-pill">v1.2.0</span></h1>
+        <p>开源本地 AI 沉浸翻译</p>
+      </div>
+    </div>
+    <a href="https://github.com/Ningnuo-Sama/Lingxi-Translate" target="_blank" class="header-link" title="在 GitHub 查看项目">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+      </svg>
+    </a>
   </div>
 
+  <!-- Hero Button -->
+  <div class="hero-box">
+    <button id="translateBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="2" y1="12" x2="22" y2="12"></line>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+      </svg>
+      翻译当前页面
+    </button>
+    <div class="host-banner">
+      <span>当前站点</span>
+      <span class="host-id" id="siteName">-</span>
+    </div>
+  </div>
+
+  <!-- Card 1: 呈现排版 -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+      排版呈现
+    </div>
+    <div class="row">
+      <div class="row-info">
+        <span class="title">显示方式</span>
+      </div>
+      <select id="displayMode">
+        <option value="only">仅显示译文</option>
+        <option value="dual">双语对照</option>
+      </select>
+    </div>
+    <div class="row">
+      <div class="row-info">
+        <span class="title">译文样式</span>
+        <small>默认沉浸无边框无装饰</small>
+      </div>
+      <select id="transStyle">
+        <option value="plain">沉浸（无装饰）</option>
+        <option value="muted">淡色</option>
+        <option value="underline">虚线下划线</option>
+        <option value="bar">竖线底色</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Card 2: 核心功能 -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+      智能交互
+    </div>
+    <div class="row">
+      <div class="row-info">
+        <span class="title">划词选中翻译</span>
+        <small>选中文本后自动弹出气泡翻译</small>
+      </div>
+      <label class="switch"><input type="checkbox" id="selectTranslate"><span class="slider"></span></label>
+    </div>
+    <div class="row">
+      <div class="row-info">
+        <span class="title">上下文精翻</span>
+        <small>先读全文，统一术语与指代</small>
+      </div>
+      <label class="switch"><input type="checkbox" id="contextMode"><span class="slider"></span></label>
+    </div>
+    <div class="row">
+      <div class="row-info">
+        <span class="title">自动翻译外文页</span>
+        <small>中文页面自动跳过</small>
+      </div>
+      <label class="switch"><input type="checkbox" id="autoAll"><span class="slider"></span></label>
+    </div>
+    <div class="row">
+      <div class="row-info">
+        <span class="title">显示悬浮球</span>
+        <small>页面边缘贴边一键入口（右键出菜单）</small>
+      </div>
+      <label class="switch"><input type="checkbox" id="floatBall"><span class="slider"></span></label>
+    </div>
+  </div>
+
+  <!-- Card 3: 站点规则 -->
+  <div class="card">
+    <div class="card-title">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+      当前站点规则
+    </div>
+    <div class="row">
+      <div class="row-info">
+        <span class="title">始终自动翻译本站</span>
+      </div>
+      <label class="switch"><input type="checkbox" id="autoSite"><span class="slider"></span></label>
+    </div>
+    <div class="row">
+      <div class="row-info">
+        <span class="title">永不自动翻译本站</span>
+        <small id="neverSiteName" style="display:none">-</small>
+      </div>
+      <label class="switch"><input type="checkbox" id="neverSite"><span class="slider"></span></label>
+    </div>
+  </div>
+
+  <!-- Accordion: 术语管理 -->
   <details>
-    <summary>网站规则</summary>
-    <label class="cap">始终自动翻译的网站</label>
-    <textarea id="autoRules" rows="3" spellcheck="false" placeholder="一行一个，例如：&#10;news.ycombinator.com&#10;*.medium.com"></textarea>
-    <label class="cap" style="margin-top:8px">永不自动翻译的网站</label>
-    <textarea id="neverRules" rows="3" spellcheck="false" placeholder="一行一个，优先级更高"></textarea>
-    <small class="hint">写域名即可（含子域），支持 * 通配，整条网址也行。永不翻译的网站仍可手动翻译。</small>
+    <summary>术语策略与词表</summary>
+    <div class="details-body">
+      <div class="field">
+        <label class="cap">术语处理模式</label>
+        <select id="termMode">
+          <option value="keep">保留原文（推荐）</option>
+          <option value="gloss">首次括注（译名+原文）</option>
+          <option value="translate">全部翻译</option>
+        </select>
+        <small class="hint">专有名词、公司、库名与缩写规则；重新翻译后生效。</small>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label class="cap">不翻译词表（保持原样）</label>
+        <textarea id="noTranslate" rows="3" spellcheck="false" placeholder="一行一个，例如：&#10;Transformer&#10;Copilot"></textarea>
+      </div>
+    </div>
   </details>
 
+  <!-- Accordion: 网站规则高级自定义 -->
   <details>
-    <summary>不翻译词表</summary>
-    <textarea id="noTranslate" rows="4" spellcheck="false" placeholder="一行一个，例如：&#10;Transformer&#10;Copilot"></textarea>
-    <small class="hint">这些词永远保持原样。术语设置修改后，重新翻译页面生效。</small>
+    <summary>网站规则名单</summary>
+    <div class="details-body">
+      <div class="field">
+        <label class="cap">始终自动翻译名单</label>
+        <textarea id="autoRules" rows="2" spellcheck="false" placeholder="一行一个，例如：&#10;news.ycombinator.com&#10;*.medium.com"></textarea>
+      </div>
+      <div class="field" style="margin-bottom:0">
+        <label class="cap">永不自动翻译名单（优先级更高）</label>
+        <textarea id="neverRules" rows="2" spellcheck="false" placeholder="一行一个，如 bank.example.com"></textarea>
+        <small class="hint">支持 * 通配符，永不翻译的网站仍可手动点击翻译。</small>
+      </div>
+    </div>
   </details>
 
+  <!-- Accordion: 模型与接口设置 -->
   <details>
     <summary>模型与接口设置</summary>
-    <div class="field">
-      <label class="cap">API 接口地址</label>
-      <input type="text" id="apiUrl" spellcheck="false">
-    </div>
-    <div class="field">
-      <label class="cap">API 密钥 (Token)</label>
-      <input type="password" id="apiKey" spellcheck="false">
-    </div>
-    <div class="field">
-      <label class="cap">模型</label>
-      <div class="inline">
-        <select id="model"></select>
-        <button id="fetchBtn" class="small" title="按上面的接口地址和密钥，从服务端拉取可用模型列表">获取模型</button>
+    <div class="details-body">
+      <div class="field">
+        <label class="cap">API 接口地址</label>
+        <input type="text" id="apiUrl" spellcheck="false" placeholder="http://127.0.0.1:7863/v1/chat/completions">
       </div>
-      <input type="text" id="modelFilter" placeholder="筛选模型…" spellcheck="false" style="display:none;margin-top:6px">
-      <input type="text" id="modelCustom" placeholder="输入模型名，回车确认" spellcheck="false" style="display:none;margin-top:6px">
-      <small class="hint" id="modelCount"></small>
+      <div class="field">
+        <label class="cap">API 密钥 (Token)</label>
+        <input type="password" id="apiKey" spellcheck="false" placeholder="Bearer 密钥（本地网关无鉴权可填 admin）">
+      </div>
+      <div class="field">
+        <label class="cap">主模型</label>
+        <div class="inline">
+          <select id="model"></select>
+          <button id="fetchBtn" class="small" title="按上面的接口地址从服务端拉取模型">获取模型</button>
+        </div>
+        <input type="text" id="modelFilter" placeholder="输入关键词筛选模型…" spellcheck="false" style="display:none;margin-top:6px">
+        <input type="text" id="modelCustom" placeholder="手动输入模型名，回车确认" spellcheck="false" style="display:none;margin-top:6px">
+        <small class="hint" id="modelCount"></small>
+      </div>
+      <div class="field">
+        <label class="cap">备用模型（主模型异常时自动接管）</label>
+        <select id="fallbackModel"></select>
+        <input type="text" id="fallbackCustom" placeholder="手动输入备用模型名，回车确认" spellcheck="false" style="display:none;margin-top:6px">
+        <small class="hint">同接口下备用；主模型连续失败自动切至备用，冷却 2 分钟后自动再试。</small>
+      </div>
+      <div class="row" style="border-bottom:0;padding:6px 0 0">
+        <div class="row-info">
+          <span class="title">关闭模型“思考”</span>
+          <small>翻译无需思考链，关闭后速度提升 2~3 倍</small>
+        </div>
+        <label class="switch"><input type="checkbox" id="noThinking"><span class="slider"></span></label>
+      </div>
+      <button id="saveBtn">保存接口设置</button>
     </div>
-    <div class="field">
-      <label class="cap">备用模型（主模型连续失败时自动切换）</label>
-      <select id="fallbackModel"></select>
-      <input type="text" id="fallbackCustom" placeholder="输入备用模型名，回车确认" spellcheck="false" style="display:none;margin-top:6px">
-      <small class="hint">用同一个接口地址；主模型连续失败 2 次会冷却 2 分钟，期间直接用备用。</small>
-    </div>
-    <div class="row" style="border-bottom:0;padding-left:0;padding-right:0">
-      <div>关闭模型思考<small>翻译更快更稳；服务端不支持会自动忽略</small></div>
-      <label class="switch"><input type="checkbox" id="noThinking"><span class="slider"></span></label>
-    </div>
-    <button id="saveBtn">保存并立即生效</button>
   </details>
+
   <div id="status"></div>
+
   <script src="rules.js"></script>
   <script src="popup.js"></script>
 </body>

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "DeepSeek 沉浸翻译 (纯净自研版)",
-  "version": "1.1.0",
-  "description": "专为 AI 与科研工作流打造的纯净双语对照与划词翻译扩展，原生直连本地 DeepSeek 4.1，零商业套路，完全免费。",
+  "name": "灵犀翻译 (Lingxi Translate)",
+  "version": "1.2.0",
+  "description": "开源本地 AI 网页沉浸翻译扩展：懂上下文、懂专业术语，支持仅译文与双语排版，直连本地大模型，零追踪零商业套路。",
   "permissions": [
     "storage",
     "activeTab",
@@ -25,7 +25,7 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "DeepSeek 翻译设置"
+    "default_title": "灵犀翻译设置"
   },
   "commands": {
     "toggle-translation": {

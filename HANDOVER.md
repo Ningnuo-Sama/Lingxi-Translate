@@ -1,19 +1,21 @@
-# 交接文档：DeepSeek 沉浸翻译（自研浏览器翻译扩展）
+# 交接文档：灵犀翻译 Lingxi Translate（自研开源浏览器翻译扩展）
 
-> 交接日期：2026-11-02　｜　版本：manifest `1.1.0`　｜　位置：`D:\GitHub\DeepSeek-Translator-Extension`
-> 接手人：执行 Agent。用户已指派你做：**把本项目建成 git 仓库并建立远端**（见第 1 节），之后日常维护。
+> 交接日期：2026-11-02　｜　版本：manifest `1.2.0`　｜　位置：`D:\GitHub\DeepSeek-Translator-Extension`
+> 维护人：执行 Agent。
+> 远端仓库：`https://github.com/Ningnuo-Sama/Lingxi-Translate`
 
 ## 0. 一句话
 
-给用户自己用的 Chrome 扩展：用本地大模型网关做网页「AI 精翻」（双语对照、术语保留、懒翻译、悬浮球），对标沉浸式翻译的使用体验，代码和提示词全部自写。目标语言固定简体中文。
+面向开源的纯净浏览器翻译扩展：用本地大模型网关做网页「AI 精翻」（上下文理解、术语保留、仅译文与双语对照、懒翻译预取、独立贴边悬浮球），对标并超越商业扩展的使用体验，代码和提示词 100% 自研。目标语言固定简体中文。
 
-## 1. 仓库与日常维护
+## 1. 仓库与开源维护
 
 | 事项 | 状态/说明 |
 |---|---|
-| Git 仓库 | 已初始化 `main` 分支并完成首次基线提交（commit `6667ca6`） |
-| 远端仓库 | 已建立并推送到 `https://github.com/Ningnuo-Sama/DeepSeek-Translator-Extension`（私有） |
-| 最近优化 | 默认沉浸仅译文模式（表格/卡片单元格内原地隐藏原文，根除行高膨胀堆叠）；悬浮球改右键呼出菜单、左键一键翻译 |
+| Git 仓库 | `main` 分支已建立完整基线，遵循 MIT 开源协议 |
+| 远端仓库 | `https://github.com/Ningnuo-Sama/Lingxi-Translate`（开源 Public） |
+| UI/UX | 灵犀现代化深空灰卡片质感设计（340px、iOS 开关、分段器、自定义折叠面板、毛玻璃微光） |
+| 交互亮点 | 默认沉浸仅译文模式（表格/卡片单元格内单行排版）；悬浮球右键呼出菜单、左键一键翻译；划词选中翻译双入口可控 |
 | 提交规范 | 提交信息末尾带 `Co-Authored-By` 行；不要 `--no-verify`；排除 `tests/__pycache__` 与临时测试产物 |
 
 ## 2. 文件地图

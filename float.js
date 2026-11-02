@@ -23,43 +23,43 @@
     :host { all: initial; }
     * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
     .ball { position: fixed; z-index: 2147483646; width: ${SIZE}px; height: ${SIZE}px; border-radius: 50%;
-      background: #10a37f; color: #fff; font-size: 17px; font-weight: 700; display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,.32); cursor: pointer; user-select: none; touch-action: none;
-      opacity: .7; transition: transform .18s ease, opacity .18s ease, background .18s ease; }
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%); color: #fff; font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(99, 102, 241, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); cursor: pointer; user-select: none; touch-action: none;
+      opacity: .7; transition: transform .18s ease, opacity .18s ease, background .18s ease, box-shadow .18s ease; }
     .ball.right { right: 0; transform: translateX(45%); }
     .ball.left { left: 0; transform: translateX(-45%); }
-    .ball:hover, .ball.open, .ball.drag { transform: translateX(0); opacity: 1; }
+    .ball:hover, .ball.open, .ball.drag { transform: translateX(0); opacity: 1; box-shadow: 0 6px 22px rgba(99, 102, 241, 0.55); }
     .ball.drag { transition: none; cursor: grabbing; }
-    .ball.on { background: #0b6e55; }
+    .ball.on { background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%); }
     .ball.busy::after { content: ""; position: absolute; inset: -4px; border-radius: 50%;
       border: 2px solid rgba(255,255,255,.9); border-top-color: transparent; animation: spin .8s linear infinite; }
     .badge { position: absolute; top: 1px; right: 1px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid #fff; display: none; }
     .badge.fb { background: #f5a524; display: block; }
     .badge.err { background: #e5484d; display: block; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .menu { position: fixed; z-index: 2147483646; width: 232px; padding: 12px; border-radius: 12px; display: none;
-      background: rgba(24,25,28,.97); color: #e4e6eb; font-size: 13px; line-height: 1.4;
-      box-shadow: 0 8px 28px rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.1); }
+    .menu { position: fixed; z-index: 2147483646; width: 236px; padding: 13px; border-radius: 14px; display: none;
+      background: rgba(18, 22, 34, 0.94); color: #f1f5f9; font-size: 13px; line-height: 1.4; backdrop-filter: blur(20px);
+      box-shadow: 0 12px 36px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.1); }
     .menu.show { display: block; }
-    .title { font-weight: 700; color: #10a37f; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-    .title small { font-weight: 400; color: #9aa0a6; font-size: 11.5px; }
+    .title { font-weight: 700; color: #a5b4fc; display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; font-size: 13px; }
+    .title small { font-weight: 400; color: #94a3b8; font-size: 11px; }
     button { font: inherit; cursor: pointer; border: 0; color: inherit; }
-    .primary { width: 100%; padding: 8px; border-radius: 8px; background: #10a37f; color: #fff; font-weight: 600; font-size: 13.5px; }
-    .primary:hover { background: #0d8a6a; }
-    .primary.on { background: #3a3d44; }
+    .primary { width: 100%; padding: 8px; border-radius: 8px; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; font-weight: 600; font-size: 13px; box-shadow: 0 2px 8px rgba(99, 102, 241, 0.35); transition: opacity 0.15s; }
+    .primary:hover { opacity: 0.92; }
+    .primary.on { background: #262c3e; box-shadow: none; border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; }
     .row { margin-top: 10px; }
-    .label { font-size: 11px; color: #9aa0a6; margin-bottom: 4px; }
-    .seg { display: flex; background: #26282d; border-radius: 7px; padding: 2px; gap: 2px; }
-    .seg button { flex: 1; padding: 4px 0; border-radius: 5px; background: transparent; font-size: 12px; color: #c4c7cc; }
-    .seg button.act { background: #10a37f; color: #fff; }
-    .tog { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 7px 2px; background: transparent; font-size: 13px; text-align: left; }
-    .tog i { width: 30px; height: 17px; border-radius: 9px; background: #3a3d44; position: relative; flex: none; transition: background .15s; }
-    .tog i::before { content: ""; position: absolute; width: 13px; height: 13px; left: 2px; top: 2px; border-radius: 50%; background: #fff; transition: transform .15s; }
-    .tog.act i { background: #10a37f; }
+    .label { font-size: 11px; color: #94a3b8; margin-bottom: 4px; font-weight: 500; }
+    .seg { display: flex; background: rgba(255,255,255,0.06); border-radius: 7px; padding: 2px; gap: 2px; border: 1px solid rgba(255,255,255,0.05); }
+    .seg button { flex: 1; padding: 4px 0; border-radius: 5px; background: transparent; font-size: 12px; color: #cbd5e1; transition: all 0.15s; }
+    .seg button.act { background: #6366f1; color: #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+    .tog { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 6px 2px; background: transparent; font-size: 12.5px; text-align: left; color: #e2e8f0; }
+    .tog i { width: 30px; height: 17px; border-radius: 9px; background: #2b3245; position: relative; flex: none; transition: background .15s; border: 1px solid rgba(255,255,255,0.08); }
+    .tog i::before { content: ""; position: absolute; width: 13px; height: 13px; left: 1px; top: 1px; border-radius: 50%; background: #fff; transition: transform .15s; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+    .tog.act i { background: #6366f1; border-color: rgba(99, 102, 241, 0.4); }
     .tog.act i::before { transform: translateX(13px); }
-    .sep { height: 1px; background: #2c2e34; margin: 8px 0 2px; }
-    .link { width: 100%; padding: 6px 2px; background: transparent; color: #9aa0a6; font-size: 12px; text-align: left; }
-    .link:hover { color: #e4e6eb; }
+    .sep { height: 1px; background: rgba(255,255,255,0.07); margin: 8px 0 3px; }
+    .link { width: 100%; padding: 5px 2px; background: transparent; color: #94a3b8; font-size: 11.5px; text-align: left; transition: color 0.15s; }
+    .link:hover { color: #f1f5f9; }
     .note { margin-top: 6px; font-size: 11px; color: #f5a524; min-height: 14px; }
     @media print { .ball, .menu { display: none !important; } }
   `;
@@ -190,7 +190,7 @@
     const p = DS.progress();
     const status = on ? (p.pending ? `翻译中 ${p.total - p.pending - p.failed}/${p.total}` : `已译 ${p.total - p.failed}/${p.total}`) : "未翻译";
     menu.innerHTML = `
-      <div class="title"><span>DeepSeek 翻译</span><small>${status}</small></div>
+      <div class="title"><span>灵犀翻译</span><small>${status}</small></div>
       <button class="primary ${on ? "on" : ""}" data-act="toggle">${on ? "恢复原文" : "翻译此页面"}</button>
       <div class="row"><div class="label">译文样式</div>${seg("transStyle", STYLES, cfg.transStyle)}</div>
       <div class="row"><div class="label">术语处理（重新翻译后生效）</div>${seg("termMode", TERMS, cfg.termMode)}</div>
