@@ -9,7 +9,8 @@ const DEFAULT_CONFIG = {
   fallbackModel: "", // 备用模型：主模型连续失败时自动切换，同一接口地址；留空则不启用
   noThinking: true, // 关闭模型“思考”：翻译不需要推理，关掉后更快更稳
   transStyle: "plain", // 译文样式，给页面端用：plain 无装饰 | muted 淡色 | underline 下划线 | bar 竖线底色
-  displayMode: "only" // 显示方式：only 仅译文（沉浸，默认）| dual 双语对照
+  displayMode: "only", // 显示方式：only 仅译文（沉浸，默认）| dual 双语对照
+  selectTranslate: true // 划词选中翻译：选中文本后自动弹出气泡翻译
 };
 
 // 一次性迁移：老版本默认是「双语对照」，用户没主动改过就升级成「仅译文」；

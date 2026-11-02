@@ -46,7 +46,7 @@ popup/悬浮球/Alt+A ──► content.js ──translate-page──► backgro
 
 ## 4. 存储键（`chrome.storage.local`，默认值见 `background.js` 的 `DEFAULT_CONFIG` 与 `popup.js`）
 
-`apiUrl` `apiKey` `model` `fallbackModel` `noThinking`(默认 true) `contextMode`(默认 true) `termMode`(keep|gloss|translate，默认 keep) `noTranslate`(多行文本) `transStyle`(plain|muted|underline|bar) `displayMode`(dual|only) `autoSites` `neverSites`(规则数组，格式见 `rules.js`) `autoAll` `floatBall`(默认 true) `floatPos{side,top}` `floatHideSites` `modelList` `modelListFor`。
+`apiUrl` `apiKey` `model` `fallbackModel` `noThinking`(默认 true) `contextMode`(默认 true) `termMode`(keep|gloss|translate，默认 keep) `noTranslate`(多行文本) `transStyle`(plain|muted|underline|bar) `displayMode`(dual|only) `selectTranslate`(默认 true) `autoSites` `neverSites`(规则数组，格式见 `rules.js`) `autoAll` `floatBall`(默认 true) `floatPos{side,top}` `floatHideSites` `modelList` `modelListFor`。
 译文缓存与上下文缓存在 `chrome.storage.session`（浏览器关闭即清）：`t:*`（译文，FIFO 上限 1500）、`ctx:*`、`tc:idx`。
 
 ## 5. 关键设计决策（含实测依据，改动前请先看）

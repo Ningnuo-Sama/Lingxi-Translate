@@ -7,6 +7,7 @@ const DEFAULT_CONFIG = {
   neverSites: [], // 永不自动翻译的网站，优先级高于上面
   autoAll: false,
   floatBall: true,
+  selectTranslate: true,
   fallbackModel: "",
   displayMode: "only",
   termMode: "keep",
@@ -195,6 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $("transStyle").value = data.transStyle;
     $("noThinking").checked = data.noThinking !== false;
     $("floatBall").checked = data.floatBall !== false;
+    $("selectTranslate").checked = data.selectTranslate !== false;
     fallback = data.fallbackModel || "";
     renderFallback();
     autoSites = data.autoSites || [];
@@ -241,6 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
   $("termMode").addEventListener("change", (e) => chrome.storage.local.set({ termMode: e.target.value }, () => flash("术语设置已保存，重新翻译页面生效")));
   $("noTranslate").addEventListener("change", (e) => chrome.storage.local.set({ noTranslate: e.target.value }, () => flash("不翻译词表已保存，重新翻译页面生效")));
   $("floatBall").addEventListener("change", (e) => chrome.storage.local.set({ floatBall: e.target.checked }));
+  $("selectTranslate").addEventListener("change", (e) => chrome.storage.local.set({ selectTranslate: e.target.checked }));
   $("autoSite").addEventListener("change", (e) => toggleSite("always", e.target));
   $("neverSite").addEventListener("change", (e) => toggleSite("never", e.target));
   $("autoRules").addEventListener("change", (e) => {

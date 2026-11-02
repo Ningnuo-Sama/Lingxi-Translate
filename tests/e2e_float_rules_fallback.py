@@ -207,6 +207,9 @@ with sync_playwright() as pw:
         R["popup_site_toggles_on_ext_page"] = {"autoSite_disabled": pop.is_disabled("#autoSite"), "neverSite_disabled": pop.is_disabled("#neverSite")}
         pop.evaluate("document.getElementById('floatBall').click()"); time.sleep(0.4)
         R["popup_floatball_toggle"] = store(["floatBall"])
+        pop.evaluate("document.getElementById('selectTranslate').click()"); time.sleep(0.4)
+        R["popup_select_translate_toggle"] = store(["selectTranslate"])
+        pop.evaluate("document.getElementById('selectTranslate').click()"); time.sleep(0.4)
         pop.screenshot(path=str(SCR / "float_6_popup.png"), full_page=True)
         R["popup_errors"] = perr
         R["page_errors"] = errs

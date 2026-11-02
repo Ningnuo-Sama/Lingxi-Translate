@@ -1,4 +1,4 @@
-"""汇总 e2e_float_rules_fallback.py 的结果 JSON，逐项给出 PASS/FAIL（20 项）。
+"""汇总 e2e_float_rules_fallback.py 的结果 JSON，逐项给出 PASS/FAIL（21 项）。
 用法：先跑 e2e_style_speed.py（生成测试页），再跑 e2e_float_rules_fallback.py，最后跑本脚本。"""
 import json, os, sys, tempfile
 
@@ -24,6 +24,7 @@ chk = {
     "弹窗备用模型选择/清除": d["popup_fallback_saved"]["fallbackModel"] == "cn:glm-5.3-flash" and d["popup_fallback_cleared"]["fallbackModel"] == "",
     "弹窗规则规范化保存": d["popup_rules_saved"]["stored"]["autoSites"] == ["news.example.com", "*.medium.com"] and d["popup_never_saved"]["neverSites"] == ["bank.example.com", "mail.example.com"],
     "弹窗悬浮球开关": d["popup_floatball_toggle"]["floatBall"] is False,
+    "弹窗划词翻译开关": d.get("popup_select_translate_toggle", {}).get("selectTranslate") is False,
     "无页面/弹窗报错": d["page_errors"] == [] and d["popup_errors"] == [],
 }
 for k, v in chk.items():

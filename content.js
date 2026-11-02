@@ -1,6 +1,7 @@
 let tooltipEl = null;
 let session = null; // 当前页面的翻译会话：监听器、段落表、待发队列
 let displayMode = "only"; // dual 双语对照 | only 仅译文（默认：沉浸，原地替换原文，不撑高版面）
+let selectTranslate = true; // 划词选中翻译开关
 
 // 可作为“一段文字”的块；只取不含其它块的最内层，避免重复翻译
 const CAND_SEL = "p,h1,h2,h3,h4,h5,h6,li,blockquote,td,th,dd,dt,figcaption,summary,div";
@@ -42,8 +43,17 @@ function selectionContext() {
 
 // 划词监听
 document.addEventListener("mouseup", (e) => {
+  if (!selectTranslate) {
+    if (tooltipEl) tooltipEl.style.display = "none";
+    return;
+  }
   const selection = window.getSelection().toString().trim();
   if (!selection || selection.length < 2) {
+    if (tooltipEl) tooltipEl.style.display = "none";
+    return;
+  }
+  // 选中的已经是中文或纯符号数字，不弹出气泡打扰
+  if (!/[A-Za-zÀ-ɏЀ-ӿ぀-ヿ가-힯]/.test(selection) || isMostlyCJK(selection)) {
     if (tooltipEl) tooltipEl.style.display = "none";
     return;
   }
@@ -418,12 +428,14 @@ chrome.storage.onChanged.addListener((changes, area) => {
     applyDisplayMode();
   }
   if (changes.transStyle) applyStyleMode(changes.transStyle.newValue);
+  if (changes.selectTranslate) selectTranslate = changes.selectTranslate.newValue !== false;
 });
 
 // 页面加载后按设置自动翻译：命中“自动翻译的网站”，或开启了“自动翻译所有外文页”且当前页不是中文。
 // “永不翻译的网站”优先级最高，命中就不自动翻译（手动点按钮、悬浮球、Alt+A 仍然可以）
-chrome.storage.local.get({ autoSites: [], neverSites: [], autoAll: false, displayMode: "only", transStyle: "plain" }, (cfg) => {
+chrome.storage.local.get({ autoSites: [], neverSites: [], autoAll: false, displayMode: "only", transStyle: "plain", selectTranslate: true }, (cfg) => {
   displayMode = cfg.displayMode;
+  selectTranslate = cfg.selectTranslate !== false;
   applyStyleMode(cfg.transStyle);
   const run = () => {
     if (isTranslated()) return;

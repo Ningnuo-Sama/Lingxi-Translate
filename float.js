@@ -13,7 +13,8 @@
 
   let cfg = {
     floatBall: true, floatHideSites: [], floatPos: { side: "right", top: 0.45 },
-    autoSites: [], neverSites: [], transStyle: "plain", termMode: "keep"
+    autoSites: [], neverSites: [], transStyle: "plain", termMode: "keep",
+    selectTranslate: true
   };
   let host = null, root = null, ball = null, menu = null;
   let dragging = false;
@@ -194,6 +195,7 @@
       <div class="row"><div class="label">译文样式</div>${seg("transStyle", STYLES, cfg.transStyle)}</div>
       <div class="row"><div class="label">术语处理（重新翻译后生效）</div>${seg("termMode", TERMS, cfg.termMode)}</div>
       <div class="sep"></div>
+      <button class="tog ${cfg.selectTranslate !== false ? "act" : ""}" data-act="selectTranslate">划词选中翻译<i></i></button>
       <button class="tog ${always ? "act" : ""}" data-act="always">始终翻译本站<i></i></button>
       <button class="tog ${never ? "act" : ""}" data-act="never">永不自动翻译本站<i></i></button>
       <button class="link" data-act="hide">本站不显示悬浮球</button>
@@ -243,6 +245,11 @@
       DS.toggle();
       update();
       closeMenu();
+    } else if (act === "selectTranslate") {
+      const on = btn.classList.contains("act");
+      cfg.selectTranslate = !on;
+      chrome.storage.local.set({ selectTranslate: !on });
+      renderMenu();
     } else if (act === "always" || act === "never") {
       const on = !btn.classList.contains("act");
       const res = setSiteRule(cfg.autoSites, cfg.neverSites, location.hostname, act, on);
